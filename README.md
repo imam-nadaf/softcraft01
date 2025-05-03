@@ -35,3 +35,18 @@ git merge main [merge all the changes from branch main and feature-A]
 git rebase main [rebase or put my commits on top of commits of branch main]
 
 git status [shows status of all the files (working dir/staging area)]
+
+softcraft03:
+Maven is a build automation and project management tool for Java.
+
+Advantages:
+
+Easy dependency management: Automatically downloads required libraries.
+
+Standardized builds: Consistent process for all Maven projects.
+
+Organized project structure: Enforces a clear directory layout.
+
+Extensive plugin support: Many tools available for various tasks.
+
+Central repository: Access to a vast library of open-source components.
