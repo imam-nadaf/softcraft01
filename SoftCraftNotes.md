@@ -36,15 +36,12 @@ git rebase main [rebase or put my commits on top of commits of branch main]
 
 git status [shows status of all the files (working dir/staging area)]
 
-softcraft03:
+# softcraft02:
 Maven is a build automation and project management tool for Java.
 
 Advantages:
 
 Easy dependency management: Automatically downloads required libraries.
-
-SoftCraft01:
-
 
 Standardized builds: Consistent process for all Maven projects.
 
@@ -55,18 +52,16 @@ Extensive plugin support: Many tools available for various tasks.
 Central repository: Access to a vast library of open-source components.
 
 
-SoftCraft04:
+# softcraft04
 Build Lifecycle
 
 validate -> resource -> compile -> test -> package -> deploy
-
               1. main resource  1. main class
-              
               2. test resources  2. test classes
 
 validate pom.xml, copy main resources, compile main java, copy test resource, compile test java, run test, jar, install, deploy
 
-                                        maven frequently used commands
+maven frequently used commands
 1. mvn clean compile --> cleans the target folder and recompile everything
 2. mvn clean compile -DskipTests --> cleans the target folder and recompile main classes excluding test
 3. mvn clean compile -U --> clean compile, force download dependenciˀes
