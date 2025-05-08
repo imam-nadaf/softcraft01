@@ -1,139 +1,81 @@
 import java.util.HashMap;
 import java.util.Map;
 
-// Class to represent a political party
+// 1. Party Class
 class Party {
-    private String code;
-    private String name;
+    String code;
+    String name;
 
     public Party(String code, String name) {
         this.code = code;
         this.name = name;
     }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
 
-// Class to represent the election result for a constituency
-class ConstituencyResult {
-    private String constituency;
-    private Map<Party, Integer> votes;
-    private int totalVotes;
+// 2. Result Class
+class Result {
+    String areaName;
+    Map<Party, Integer> partyVotes;
 
-    public ConstituencyResult(String constituency) {
-        this.constituency = constituency;
-        this.votes = new HashMap<>();
-        this.totalVotes = 0;
+    public Result(String areaName) {
+        this.areaName = areaName;
+        this.partyVotes = new HashMap<>();
     }
 
-    public String getConstituency() {
-        return constituency;
+    public void addVotes(Party party, int votes) {
+        this.partyVotes.put(party, votes);
     }
 
-    public void addVote(Party party, int voteCount) {
-        this.votes.put(party, voteCount);
-        this.totalVotes += voteCount;
-    }
-
-    public Party getWinningParty() {
-        Party winningParty = null;
+    public Party getWinner() {
+        Party winner = null;
         int maxVotes = -1;
-        for (Map.Entry<Party, Integer> entry : votes.entrySet()) {
+        for (Map.Entry<Party, Integer> entry : partyVotes.entrySet()) {
             if (entry.getValue() > maxVotes) {
                 maxVotes = entry.getValue();
-                winningParty = entry.getKey();
+                winner = entry.getKey();
             }
         }
-        return winningParty;
+        return winner;
     }
 
-    public double getVoteShare(Party party) {
-        if (totalVotes == 0 || !votes.containsKey(party)) {
-            return 0.0;
+    public double getWinnerPercentage() {
+        if (partyVotes.isEmpty()) return 0;
+        int totalVotes = 0;
+        for (int votes : partyVotes.values()) {
+            totalVotes += votes;
         }
-        return (double) votes.get(party) / totalVotes * 100;
+        if (totalVotes == 0) return 0;
+        return (double) partyVotes.get(getWinner()) / totalVotes * 100;
     }
 
-    public int getTotalVotes() {
-        return totalVotes;
+    public void printResult() {
+        Party winner = getWinner();
+        double percentage = getWinnerPercentage();
+        System.out.println(areaName + ": " + winner.name + " (" + winner.code + "), " + String.format("%.1f", percentage) + "%");
     }
 }
 
-// Class to manage the election results processing
-public class ElectionResultsOOMD {
-
-    private static Map<String, Party> parties = new HashMap<>();
-
-    // Initialize the parties
-    static {
-        parties.put("BJP", new Party("BJP", "Bhartiya Janta Party"));
-        parties.put("INC", new Party("INC", "Indian National Congress"));
-        parties.put("BSP", new Party("BSP", "Bahujan Samaj Party"));
-        parties.put("CPI", new Party("CPI", "Communist Party of India"));
-        parties.put("NCP", new Party("NCP", "Nationalist Congress Party"));
-        parties.put("IND", new Party("IND", "Independent"));
-    }
+// 3. Main class
+public class Main {
 
     public static void main(String[] args) {
-        // Static input data
-        String constituencyName = "Jaipur";
-        String resultsString = "BJP=400,INC=250,CPI=20,NCP=150";
+     
+        Party bjp = new Party("BJP", "Bhartiya Janta Party");
+        Party inc = new Party("INC", "Indian National Congress");
+        Party cpi = new Party("CPI", "Communist Party of India");
+        Party ncp = new Party("NCP", "Nationalist Congress Party");
+        Party ind = new Party("IND", "Independent");
 
-        // Process the results
-        ConstituencyResult result = processConstituencyResult(constituencyName, resultsString);
 
-        // Print the header
-        System.out.println("Constituency, Winning Party, Vote Share");
+       
+        Result electionResult1 = new Result("Voting Area 1"); // Changed to "Voting Area 1"
+        electionResult1.addVotes(bjp, 400);
+        electionResult1.addVotes(inc, 250);
+        electionResult1.addVotes(cpi, 20);
+        electionResult1.addVotes(ncp, 150);
 
-        // Print the result
-        printResult(result);
-    }
-
-    public static ConstituencyResult processConstituencyResult(String constituencyName, String resultsString) {
-        ConstituencyResult result = new ConstituencyResult(constituencyName);
-        String[] partyResults = resultsString.split(",");
-        for (String partyResult : partyResults) {
-            String[] parts = partyResult.split("=");
-            if (parts.length != 2) {
-                System.out.println("Skipping invalid party result: " + partyResult);
-                continue;
-            }
-            String partyCode = parts[0];
-            int voteCount = 0;
-            try {
-                voteCount = Integer.parseInt(parts[1]);
-            } catch (NumberFormatException e) {
-                System.out.println("Skipping invalid vote count: " + parts[1]);
-                continue;
-            }
-            Party party = parties.get(partyCode);
-            if (party != null) {
-                result.addVote(party, voteCount);
-            } else {
-                System.out.println("Skipping unknown party code: " + partyCode);
-            }
-        }
-        return result;
-    }
-
-    public static void printResult(ConstituencyResult result) {
-        if (result.getTotalVotes() > 0) {
-            Party winningParty = result.getWinningParty();
-            if (winningParty != null) {
-                double voteShare = result.getVoteShare(winningParty);
-                System.out.printf("%s, %s %s, %.1f%%\n", result.getConstituency(), winningParty.getCode(), winningParty.getName(), voteShare);
-            } else {
-                System.out.println(result.getConstituency() + ", No winning party found");
-            }
-        } else {
-            System.out.println(result.getConstituency() + ", No votes recorded");
-        }
+      
+        System.out.println("Election Results:");
+        electionResult1.printResult();
     }
 }
-
