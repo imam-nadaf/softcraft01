@@ -68,7 +68,7 @@ public class Main {
 
 
        
-        Result electionResult1 = new Result("Voting Area 1"); // Changed to "Voting Area 1"
+        Result electionResult1 = new Result("Jaipur "); 
         electionResult1.addVotes(bjp, 400);
         electionResult1.addVotes(inc, 250);
         electionResult1.addVotes(cpi, 20);
