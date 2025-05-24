@@ -1,5 +1,5 @@
 
-###Object-Oriented Modeling and Design
+### **Object-Oriented Modeling and Design Fitness Tracking**
 #### **Classes and Behaviors**
 
 1. **User**
@@ -30,15 +30,12 @@
 3. **Exercise**
    - **Attributes**:
      - exerciseId: Unique identifier for the exercise.
-     - name: Name of the exercise (e.g., "Running", "Push-ups").
-     - type: Category (e.g., cardio, strength, flexibility).
-     - intensity: Intensity level (e.g., low, medium, high).
-     - duration: Duration of the exercise (in minutes).
+     - name: Name of the exercise .
+     - duration: Duration of the exercise .
      - caloriesPerMinute: Estimated calories burned per minute for the exercise.
    - **Behaviors**:
      - createExercise(name, type, intensity, caloriesPerMinute): Create a new exercise.
      - updateExercise(name, type, intensity, caloriesPerMinute): Update exercise details.
-     - deleteExercise(): Remove an exercise from the system.
 
 4. **Progress**
    - **Attributes**:
@@ -47,9 +44,8 @@
      - totalCaloriesBurned: Sum of calories burned across all workouts.
      - workoutHistory: List of past workouts.
    - **Behaviors**:
-     - calculateProgress(): Compute progress metrics (e.g., total workouts, calories).
-     - viewProgressSummary(): Display progress metrics (e.g., charts or stats).
-     - filterProgressByDate(startDate, endDate): Show progress for a specific time range.
+     - calculateProgress(): Compute progress.
+     - viewProgressSummary(): Display progress .
 
 #### **Relationships Between Classes**:
 - **User - Workout**: One-to-Many (One user can have multiple workouts).
